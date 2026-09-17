@@ -1,0 +1,36 @@
+apiVersion: backstage.io/v1alpha1
+kind: AiResource
+metadata:
+  name: agent-memory
+  namespace: ai5-marketplace
+  title: Agent Memory
+  description: >
+    Manage a persistent local knowledge graph via Memory MCP. Use when
+    ingesting meeting notes, recalling past decisions, or updating obsolete
+    architecture facts.
+  labels:
+    distribution: external
+  annotations:
+    backstage.io/source-location: >-
+      url:https://github.com/RedTanny/knowledge-graph-demo/blob/main/skills/agent-memory/SKILL.md
+  tags:
+    - ai-skill
+    - memory
+    - knowledge-graph
+  links:
+    - url: https://github.com/RedTanny/knowledge-graph-demo
+      title: Source Repository
+      icon: github
+spec:
+  type: skill
+  lifecycle: development
+  owner: group:redhat/ai5-marketplace
+  disciplines:
+    - productivity
+  categories:
+    - memory
+  agents: []
+  dependsOn:
+    - airesource:ai5-marketplace/knowledge-graph-demo
+    - mcpserver:ai5-marketplace/memory-mcp-server
+  dependencyOf: []

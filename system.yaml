@@ -1,0 +1,27 @@
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: knowledge-graph-demo
+  title: Knowledge Graph Demo
+  description: >
+    Demonstrates a persistent local knowledge graph (meeting notes → graph →
+    fresh-session recall) via the Memory MCP server, governed by the
+    agent-memory skill.
+  tags:
+    - ai-skill
+    - agentic
+    - memory
+  annotations:
+    agentic-plugins.redhat.com/version: "0.1.0"
+    agentic-plugins.redhat.com/repo: "knowledge-graph-demo"
+    agentic.redhat.com/repository: https://github.com/RedTanny/knowledge-graph-demo
+    github.com/project-slug: RedTanny/knowledge-graph-demo
+  links:
+    - url: https://github.com/RedTanny/knowledge-graph-demo
+      title: Source Repository
+      icon: github
+spec:
+  owner: group:redhat/ai5-marketplace
+  dependencyOf:
+    - airesource:ai5-marketplace/knowledge-graph-demo
+    - mcpserver:ai5-marketplace/memory-mcp-server

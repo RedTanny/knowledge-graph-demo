@@ -1,0 +1,25 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: knowledge-graph-demo
+  title: Knowledge Graph Demo Agentic Pack
+  description: >
+    Points to all AI skill catalog entities in the knowledge-graph-demo
+    agentic pack — a persistent local knowledge graph demo built on the
+    Memory MCP server.
+  annotations:
+    agentic-plugins.redhat.com/version: "0.1.0"
+    agentic-plugins.redhat.com/repo: "knowledge-graph-demo"
+    agentic.redhat.com/lola-module: "true"
+    agentic.redhat.com/lola-module-name: knowledge-graph-demo
+    agentic.redhat.com/repository: https://github.com/RedTanny/knowledge-graph-demo
+    agentic.redhat.com/path: .
+spec:
+  targets:
+    # Repository-level system
+    - ./system.yaml
+    # Agentic pack
+    - ./knowledge-graph-demo-plugin.yaml
+    - ./skills/agent-memory/catalog-info.yaml
+    # MCP server
+    - ./mcps/memory-mcp-server.yaml

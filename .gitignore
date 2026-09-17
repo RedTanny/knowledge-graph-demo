@@ -1,0 +1,9 @@
+# Live knowledge graph produced by the Memory MCP server during demo sessions.
+# The reference/expected output lives in data/memory.jsonl.example instead.
+data/memory.jsonl
+
+# Node
+node_modules/
+
+# OS / editor
+.DS_Store

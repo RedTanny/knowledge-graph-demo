@@ -1,0 +1,13 @@
+{"type":"entity","name":"Project_Helios","entityType":"project","observations":["Migrating user database from MongoDB to PostgreSQL","Web dashboard prioritized over mobile MVP this quarter"]}
+{"type":"entity","name":"Sarah","entityType":"person","observations":["Lead Engineer","Approved Prisma as the project ORM"]}
+{"type":"entity","name":"David","entityType":"person","observations":["DevOps","Will provision the AWS RDS PostgreSQL instance"]}
+{"type":"entity","name":"Marcus","entityType":"person","observations":["Product","Will update the Jira roadmap to reflect the mobile app delay"]}
+{"type":"entity","name":"PostgreSQL","entityType":"technology","observations":["Target database for the Project Helios migration"]}
+{"type":"entity","name":"Prisma","entityType":"technology","observations":["Approved ORM for Project Helios"]}
+{"type":"entity","name":"MongoDB","entityType":"technology","observations":["Legacy database being replaced by PostgreSQL"]}
+{"type":"relation","from":"Sarah","to":"Project_Helios","relationType":"leads"}
+{"type":"relation","from":"Sarah","to":"Prisma","relationType":"approved"}
+{"type":"relation","from":"David","to":"Project_Helios","relationType":"owns_infrastructure"}
+{"type":"relation","from":"Marcus","to":"Project_Helios","relationType":"manages_roadmap"}
+{"type":"relation","from":"Project_Helios","to":"PostgreSQL","relationType":"migrating_to"}
+{"type":"relation","from":"Project_Helios","to":"MongoDB","relationType":"migrating_from"}

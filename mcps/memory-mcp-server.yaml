@@ -1,0 +1,67 @@
+apiVersion: mcp/v1beta1
+kind: MCPServer
+metadata:
+  namespace: ai5-marketplace
+  name: memory-mcp-server
+  title: Memory MCP Server
+  description: >
+    Reference Model Context Protocol server providing a simple, local
+    knowledge graph (entities, relations, observations) backed by a JSONL
+    file on disk. Used to give agents persistent memory across sessions.
+  labels:
+    distribution: external
+  annotations:
+    backstage.io/source-location: >-
+      url:https://github.com/RedTanny/knowledge-graph-demo/blob/main/mcp.json
+  tags:
+    - memory
+    - knowledge-graph
+    - local
+    - mcp-server
+  links:
+    - url: https://github.com/modelcontextprotocol/servers/tree/main/src/memory
+      title: Upstream Repository
+      icon: github
+spec:
+  type: local
+  lifecycle: development
+  owner: group:redhat/ai5-marketplace
+  system: default/knowledge-graph-demo
+  primitives:
+    - type: tool
+      name: create_entities
+      description: Create new entities (people, projects, systems, technologies) in the knowledge graph.
+    - type: tool
+      name: create_relations
+      description: Create directed, verb-like relations between existing entities.
+    - type: tool
+      name: add_observations
+      description: Attach factual, atomic observations (properties) to an existing entity.
+    - type: tool
+      name: search_nodes
+      description: Search the knowledge graph for entities matching a query.
+    - type: tool
+      name: read_graph
+      description: Read the entire knowledge graph.
+    - type: tool
+      name: open_nodes
+      description: Open specific named entities and their relations from the graph.
+    - type: tool
+      name: delete_relations
+      description: Remove stale relations from the knowledge graph.
+    - type: tool
+      name: delete_observations
+      description: Remove stale observations from an entity.
+  packages:
+    - type: npm
+      registry_name: npmjs.org
+      name: "@modelcontextprotocol/server-memory"
+      environment_variables:
+        - description: Filesystem path where the JSONL knowledge graph is persisted.
+          name: MEMORY_FILE_PATH
+  remotes: []
+  dependsOn:
+    - system:default/knowledge-graph-demo
+  dependencyOf:
+    - airesource:ai5-marketplace/knowledge-graph-demo
+    - airesource:ai5-marketplace/agent-memory
