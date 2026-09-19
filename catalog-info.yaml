@@ -14,7 +14,7 @@ metadata:
     agentic.redhat.com/lola-module-name: knowledge-graph-demo
     agentic.redhat.com/repository: https://github.com/RedTanny/knowledge-graph-demo
     agentic.redhat.com/path: .
-    agentic.redhat.com/market: "redhat-only"
+    agentic.redhat.com/markets: "redhat-only"
     agentic.redhat.com/source: "community"
 spec:
   targets:
