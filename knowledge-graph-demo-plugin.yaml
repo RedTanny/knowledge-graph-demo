@@ -15,12 +15,14 @@ metadata:
     - knowledge-graph
     - demo
   annotations:
-    agentic-plugins.redhat.com/version: "0.1.0"
+    agentic-plugins.redhat.com/version: "1.0.0"
     agentic-plugins.redhat.com/repo: "knowledge-graph-demo"
     agentic.redhat.com/lola-module: "true"
     agentic.redhat.com/lola-module-name: knowledge-graph-demo
     agentic.redhat.com/repository: https://github.com/RedTanny/knowledge-graph-demo
     agentic.redhat.com/path: .
+    agentic.redhat.com/market: "redhat-only"
+    agentic.redhat.com/source: "community"
     github.com/project-slug: RedTanny/knowledge-graph-demo
   links:
     - url: https://github.com/RedTanny/knowledge-graph-demo
