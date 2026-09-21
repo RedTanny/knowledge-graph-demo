@@ -4,17 +4,31 @@ A two-session presenter script showing an agent that persists knowledge from
 meeting notes into a local graph, then recalls it in a completely fresh
 session — no re-pasted context required.
 
-**Validation path:** install this pack from the **private hub** (Lola or
-equivalent) before running the script below. A raw git clone with manual MCP
-setup also works for local development — see [README.md](README.md).
+**Validation path:** install this pack from the **private hub**, via any
+client (Lola, Claude Code's self-hosted marketplace, etc.), then run
+Session 0 below. A raw git clone also works for local development — see
+[README.md](README.md).
 
 ## Prerequisites
 
-- Pack installed from the private hub, or cloned locally with `mcp.json`
-  configured for your host (see [README.md](README.md#mcp-host-setup)).
-- Memory MCP server connected in the IDE (`memory` in your MCP server list).
+- Pack installed from the private hub (any client), or cloned locally.
 - Node.js 18+ available on `PATH` (needed for `npx` to fetch
   `@modelcontextprotocol/server-memory`).
+
+## Session 0 — Setup (once per workspace)
+
+1. Open the workspace you'll run the demo in.
+2. Run **`/memory-mcp-setup`**.
+3. Follow its prompts (host detection, project- vs. user-level, etc.) and
+   let it print its summary.
+4. Reload MCP servers (or restart the host) as instructed. If the host
+   shows an Enable/Trust prompt for a new server, approve `memory`.
+5. **Verify:** `memory` shows as **connected** in the host's MCP server
+   list — not just that a JSON entry exists.
+
+If `/memory-mcp-setup` isn't available (e.g. pack not installed at all),
+configure Memory MCP by hand per
+[README.md § MCP host setup](README.md#mcp-host-setup) before continuing.
 
 ## Session 1 — Knowledge Ingestion
 
@@ -62,6 +76,7 @@ re-query to confirm the graph reflects the update.
 
 | Symptom | Likely cause | Fix |
 |---|---|---|
-| `data/memory.jsonl` never appears | `MEMORY_FILE_PATH` resolved relative to an unexpected cwd | Use an absolute path in `mcp.json` env, or verify your host's working directory (see README) |
+| `data/memory.jsonl` never appears | `MEMORY_FILE_PATH` resolved relative to an unexpected cwd, or Session 0 wasn't run | Re-run `/memory-mcp-setup` — it pins an absolute path to the opened workspace |
 | Session 2 reads the markdown file instead of querying memory | Agent skipped the `agent-memory` skill | Re-prompt asking explicitly to "check memory" or "recall from the knowledge graph" |
-| MCP server not listed in IDE | `mcp.json` not loaded for this host | Copy/symlink into the host-specific location per [README.md](README.md#mcp-host-setup) and reload/restart |
+| MCP server not listed in IDE | `mcp.json` not loaded for this host, or Session 0 wasn't run | Run `/memory-mcp-setup`, then reload/restart. Manual fallback: [README.md](README.md#mcp-host-setup) |
+| `agent-memory` refuses to ingest/recall, says Memory MCP tools unavailable | Session 0 not done, or MCP not reloaded yet | Run `/memory-mcp-setup`, reload MCP servers, confirm `memory` shows connected, then retry |

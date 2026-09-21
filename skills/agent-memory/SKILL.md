@@ -28,6 +28,20 @@ relying on conversation history.
   especially at the start of a fresh session with no prior context.
 - Updating or correcting a previously stored decision.
 
+## Before You Start — Bounce if Memory MCP Is Missing
+
+This skill requires the Memory MCP server's tools (`create_entities`,
+`search_nodes`, `read_graph`, etc.) to actually be available in this
+session. If they are **not** — e.g. no `memory` server is connected —
+**stop immediately**:
+
+1. Tell the user Memory MCP isn't connected yet.
+2. Tell them to run `/memory-mcp-setup` to wire it up for this workspace.
+3. Do **not** fall back to reading `data/sample-meeting-notes.md` (or any
+   other source doc) as a substitute for the graph, and do not fabricate
+   entities/relations from memory of the conversation alone. Re-run this
+   skill once `/memory-mcp-setup` reports `memory` as connected.
+
 ## Recall Phase
 
 Before starting a non-trivial task, check the graph first:
@@ -75,5 +89,6 @@ the entity.
 
 ## Dependencies
 
-- Memory MCP server (`memory`) configured and connected — see
-  [README.md](../../README.md#mcp-host-setup) for per-host setup.
+- Memory MCP server (`memory`) configured and connected — run
+  `/memory-mcp-setup`, or see [README.md](../../README.md#mcp-host-setup)
+  for the manual per-host fallback.

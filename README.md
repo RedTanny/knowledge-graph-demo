@@ -14,6 +14,9 @@ This pack ships:
 
 - **`agent-memory`** — a skill governing recall, ingest, and prune
   operations against a local knowledge graph.
+- **`memory-mcp-setup`** — a skill that wires the Memory MCP server into
+  your host's MCP config, installer-agnostically, after you install this
+  pack (or clone it).
 - **Memory MCP** integration (`@modelcontextprotocol/server-memory`) —
   stores the graph as JSONL on disk, no database or cloud service required.
 - **A demo payload** — sample Project Helios meeting notes and a two-session
@@ -27,10 +30,18 @@ This pack ships:
 - An MCP-capable agentic host (Cursor, Claude Code, etc.)
 - Node.js 18+ (used by `npx` to fetch the Memory MCP server on first run)
 
-### Installation (private hub / Lola)
+### Installation (private hub)
+
+Install with whichever client you use — this pack does not assume one
+installer:
 
 ```bash
+# Lola
 lola install -f knowledge-graph-demo
+
+# Claude Code (self-hosted marketplace)
+claude plugin marketplace add <hub-repo.git>
+claude plugin install knowledge-graph-demo@<marketplace>
 ```
 
 ### Installation (local clone, for development)
@@ -40,10 +51,32 @@ git clone https://github.com/RedTanny/knowledge-graph-demo.git
 cd knowledge-graph-demo
 ```
 
-Then configure the Memory MCP server for your host — see
-[MCP host setup](#mcp-host-setup) below.
+### Session 0 — Run the setup skill
+
+However you installed it, run **`/memory-mcp-setup`** once in the workspace
+you'll use for the demo. It:
+
+- Detects your host (Cursor or Claude Code) and resolves the right MCP
+  config file for the **workspace you actually opened** — not necessarily
+  where the pack files landed.
+- Merges the `memory` server entry in, with an absolute `MEMORY_FILE_PATH`
+  pointed at that workspace's `data/memory.jsonl`.
+- Copies `data/sample-meeting-notes.md` into the workspace if it isn't
+  already there (hub installs don't put `data/` in your project; a clone
+  already has it).
+
+This works the same way regardless of installer (hub via any client, or
+clone) — see
+[plan/MEMORY_MCP_SETUP_SKILL_PLAN.md](plan/MEMORY_MCP_SETUP_SKILL_PLAN.md)
+for the full discovery algorithm. If `/memory-mcp-setup` isn't available
+yet (e.g. you haven't installed the pack at all), configure the Memory MCP
+server by hand — see [MCP host setup](#mcp-host-setup) below.
 
 ## MCP Host Setup
+
+Prefer running **`/memory-mcp-setup`** (above) — it does the following for
+you and gets the workspace-relative path right automatically. The manual
+steps below are the fallback for when the skill isn't available.
 
 The pack ships a golden-source `mcp.json` at the repo root:
 
@@ -85,6 +118,27 @@ of the demo, switch to an absolute path in your host's MCP config, e.g.:
 ```
 
 ## Skills
+
+### `memory-mcp-setup` — Memory MCP Setup
+
+Wires the Memory MCP server into your host's MCP config, no matter how you
+installed this pack (hub via any client, or a plain clone).
+
+**Use when:**
+- You just installed this pack and haven't run Session 0 yet.
+- `/agent-memory` reports Memory MCP tools aren't available.
+
+**What it does:**
+- Detects the host (Cursor or Claude Code) and the **opened workspace**
+  (not necessarily where the pack files live).
+- Merges the `memory` server entry into the right project- or user-level
+  MCP file, with an absolute `MEMORY_FILE_PATH`.
+- Copies `data/sample-meeting-notes.md` into the workspace if it's missing.
+- Never touches an existing `data/memory.jsonl` (the live graph).
+
+See
+[plan/MEMORY_MCP_SETUP_SKILL_PLAN.md](plan/MEMORY_MCP_SETUP_SKILL_PLAN.md)
+for the full discovery algorithm.
 
 ### `agent-memory` — Persistent Knowledge Graph Management
 
@@ -149,15 +203,19 @@ knowledge-graph-demo/
 ├── mcps/
 │   └── memory-mcp-server.yaml        # Compass MCPServer entity
 ├── skills/
-│   └── agent-memory/
-│       ├── SKILL.md
+│   ├── agent-memory/
+│   │   ├── SKILL.md
+│   │   └── catalog-info.yaml         # Compass AiResource (type: skill)
+│   └── memory-mcp-setup/
+│       ├── SKILL.md                  # Session 0 — installer-agnostic MCP wiring
 │       └── catalog-info.yaml         # Compass AiResource (type: skill)
 ├── data/
 │   ├── sample-meeting-notes.md       # Demo input (Project Helios)
 │   ├── memory.jsonl.example          # Reference graph after Session 1
 │   └── memory.jsonl                  # Live graph — gitignored
 ├── plan/
-│   └── IMPLEMENTATION_PLAN.md
+│   ├── IMPLEMENTATION_PLAN.md
+│   └── MEMORY_MCP_SETUP_SKILL_PLAN.md
 ├── DEMO_WALKTHROUGH.md               # Presenter script (Sessions 1 + 2)
 └── .gitignore
 ```

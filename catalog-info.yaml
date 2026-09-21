@@ -23,5 +23,6 @@ spec:
     # Agentic pack
     - ./knowledge-graph-demo-plugin.yaml
     - ./skills/agent-memory/catalog-info.yaml
+    - ./skills/memory-mcp-setup/catalog-info.yaml
     # MCP server
     - ./mcps/memory-mcp-server.yaml

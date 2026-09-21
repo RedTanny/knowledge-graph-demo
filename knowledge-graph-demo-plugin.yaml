@@ -41,3 +41,4 @@ spec:
     - mcpserver:ai5-marketplace/memory-mcp-server
   dependencyOf:
     - airesource:ai5-marketplace/agent-memory
+    - airesource:ai5-marketplace/memory-mcp-setup

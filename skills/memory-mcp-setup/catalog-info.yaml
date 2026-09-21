@@ -1,0 +1,39 @@
+apiVersion: backstage.io/v1alpha1
+kind: AiResource
+metadata:
+  name: memory-mcp-setup
+  namespace: ai5-marketplace
+  title: Memory MCP Setup
+  description: >
+    Add the Memory MCP server for the knowledge-graph demo. Merges the
+    memory entry into the host MCP config, pins MEMORY_FILE_PATH to the
+    opened workspace, and stages demo data — installer-agnostic (hub
+    install via any client, or a plain git clone).
+  labels:
+    distribution: external
+  annotations:
+    backstage.io/source-location: >-
+      url:https://github.com/RedTanny/knowledge-graph-demo/blob/main/skills/memory-mcp-setup/SKILL.md
+  tags:
+    - ai-skill
+    - memory
+    - knowledge-graph
+    - configuration
+    - mcp
+  links:
+    - url: https://github.com/RedTanny/knowledge-graph-demo
+      title: Source Repository
+      icon: github
+spec:
+  type: skill
+  lifecycle: development
+  owner: group:redhat/ai5-marketplace
+  disciplines:
+    - productivity
+  categories:
+    - configuration
+  agents: []
+  dependsOn:
+    - airesource:ai5-marketplace/knowledge-graph-demo
+    - mcpserver:ai5-marketplace/memory-mcp-server
+  dependencyOf: []
