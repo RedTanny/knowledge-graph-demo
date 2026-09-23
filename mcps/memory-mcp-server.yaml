@@ -19,9 +19,11 @@ metadata:
     - local
     - mcp-server
   links:
-    - url: https://github.com/modelcontextprotocol/servers/tree/main/src/memory
-      title: Upstream Repository
-      icon: github
+    - url: https://docs.google.com/document/d/1M2QfBOjcM8KVaRU-zcqu2krZ2jbB4gSwKSFbaJWEh2M/edit?usp=sharing
+      title: Lean Business Case
+      type: document
+      icon: docs
+
 spec:
   type: local
   lifecycle: development
