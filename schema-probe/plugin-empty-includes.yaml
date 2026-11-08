@@ -1,0 +1,21 @@
+# Do not copy. ADR: includes [] is authoritative and spec.skills is not merged.
+# Expected if the ADR is implemented: validation passes because skills is present,
+# and membership is empty. If this errors, record the message.
+apiVersion: backstage.io/v1alpha1
+kind: AiResource
+metadata:
+  name: schema-probe-empty-includes
+  namespace: ai5-marketplace
+  title: Schema Probe Empty Includes
+  description: >
+    includes is an empty array and spec.skills is nonempty. Presence of
+    includes wins. This file exists to see that trap, not to ship it.
+spec:
+  type: plugin
+  lifecycle: development
+  owner: group:redhat/ai5-marketplace
+  system: default/schema-probe
+  agents: []
+  skills:
+    - airesource:ai5-marketplace/schema-probe-recall
+  includes: []

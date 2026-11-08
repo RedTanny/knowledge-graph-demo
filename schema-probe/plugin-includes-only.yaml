@@ -1,0 +1,24 @@
+# Expected: missingProperty skills. rh-virt already failed this way.
+# Re-run after a Compass schema fix. Do not copy onto a real pack.
+apiVersion: backstage.io/v1alpha1
+kind: AiResource
+metadata:
+  name: schema-probe-includes-only
+  namespace: ai5-marketplace
+  title: Schema Probe Includes Only
+  description: >
+    spec.includes is present and spec.skills is absent. The ADR says
+    includes is then the roster. The deployed processor still requires skills.
+spec:
+  type: plugin
+  lifecycle: development
+  owner: group:redhat/ai5-marketplace
+  system: default/schema-probe
+  agents: []
+  includes:
+    - entityRef: airesource:ai5-marketplace/schema-probe-recall
+      type: skill
+    - entityRef: mcpserver:ai5-marketplace/schema-probe-mcp
+      type: mcp-server
+  dependsOn:
+    - mcpserver:ai5-marketplace/schema-probe-mcp

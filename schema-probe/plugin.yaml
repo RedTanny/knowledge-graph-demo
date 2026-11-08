@@ -1,0 +1,43 @@
+# Analyze this file first.
+# Shape that passed on rh-virt: spec.skills strings + structured spec.includes.
+# After a pass, read the preview for spec.dependsOn, spec.dependencyOf, and hasPart / partOf.
+apiVersion: backstage.io/v1alpha1
+kind: AiResource
+metadata:
+  name: schema-probe
+  namespace: ai5-marketplace
+  title: Schema Probe
+  description: >
+    Throwaway plugin for Compass catalog-import Analyze. Do not register
+    it onto the live knowledge-graph-demo entity.
+  tags:
+    - schema-probe
+  annotations:
+    agentic.redhat.com/repository: https://github.com/RedTanny/knowledge-graph-demo
+    agentic.redhat.com/path: schema-probe
+    github.com/project-slug: RedTanny/knowledge-graph-demo
+  links:
+    - url: https://github.com/RedTanny/knowledge-graph-demo
+      title: Source Repository
+      icon: github
+spec:
+  type: plugin
+  lifecycle: development
+  owner: group:redhat/ai5-marketplace
+  system: default/schema-probe
+  agents: []
+  skills:
+    - airesource:ai5-marketplace/schema-probe-recall
+    - airesource:ai5-marketplace/schema-probe-note
+  includes:
+    - entityRef: airesource:ai5-marketplace/schema-probe-recall
+      type: skill
+    - entityRef: airesource:ai5-marketplace/schema-probe-note
+      type: skill
+    - entityRef: mcpserver:ai5-marketplace/schema-probe-mcp
+      type: mcp-server
+  dependsOn:
+    - mcpserver:ai5-marketplace/schema-probe-mcp
+  dependencyOf:
+    - airesource:ai5-marketplace/schema-probe-recall
+    - airesource:ai5-marketplace/schema-probe-note

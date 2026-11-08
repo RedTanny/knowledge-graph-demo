@@ -1,0 +1,9 @@
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: schema-probe
+  title: Schema Probe
+  description: >
+    Isolated system for the schema-probe entities. Not the knowledge-graph demo.
+spec:
+  owner: group:redhat/ai5-marketplace

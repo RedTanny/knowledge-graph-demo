@@ -1,0 +1,14 @@
+# Location for the passing set only. The negative cases are separate files.
+# Analyze one file URL. Do not click Finish.
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: schema-probe
+  description: Passing schema-probe entities. Omits the negative plugin files.
+spec:
+  targets:
+    - ./system.yaml
+    - ./plugin.yaml
+    - ./skills/recall/catalog-info.yaml
+    - ./skills/note/catalog-info.yaml
+    - ./mcps/probe-mcp.yaml

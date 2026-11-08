@@ -1,0 +1,64 @@
+# Publication-field probe. Not a pack we ship.
+# Membership matches the rh-virt shape that passed Analyze, and the member
+# refs are live catalog entities so an unresolved ref does not hide a field error.
+# Destination keys are our market names from plugin-pipeline/policy/routing-mapping.yaml.
+# support_level is the contract example developer-preview, not .catalog Unknown.
+# Do not click Finish.
+apiVersion: backstage.io/v1alpha1
+kind: AiResource
+metadata:
+  name: schema-probe-publishing
+  namespace: ai5-marketplace
+  title: Schema Probe Publishing
+  description: >
+    Checks whether Compass Analyze accepts the proposed publication fields
+    and publishing.redhat.com annotations keyed by our market names.
+  summary: |
+    Probe only. Confirms field acceptance. This is not a published pack.
+  labels:
+    distribution: external
+    support_level: developer-preview
+  annotations:
+    agentic.redhat.com/markets: "redhat-only,ecosystem,RHOAI,oci,public"
+    agentic.redhat.com/repository: https://github.com/RedTanny/knowledge-graph-demo
+    agentic.redhat.com/path: schema-probe
+    github.com/project-slug: RedTanny/knowledge-graph-demo
+    publishing.redhat.com/redhat-only: "true"
+    publishing.redhat.com/ecosystem: "true"
+    publishing.redhat.com/RHOAI: "true"
+    publishing.redhat.com/oci: "true"
+    publishing.redhat.com/public: "true"
+  links:
+    - url: https://github.com/RedTanny/knowledge-graph-demo
+      title: Source Repository
+      icon: github
+spec:
+  type: plugin
+  lifecycle: development
+  owner: group:redhat/ai5-marketplace
+  system: default/agentic-plugins
+  license: Apache-2.0
+  version: 0.0.0-schema-probe
+  attribution:
+    provider: Red Hat
+    author: Schema probe
+  personas:
+    - Red Hat platform engineer
+  support:
+    ownerEmail: eco-engineering@redhat.com
+    ownerEntityRef: group:redhat/ai5-marketplace
+  sampleWorkflows:
+    - name: Probe
+      description: No-op workflow used only to exercise the field.
+  agents: []
+  skills:
+    - airesource:ai5-marketplace/vm-clone
+  includes:
+    - entityRef: airesource:ai5-marketplace/vm-clone
+      type: skill
+    - entityRef: mcpserver:ai5-marketplace/openshift-mcp-server
+      type: mcp-server
+  dependsOn:
+    - mcpserver:ai5-marketplace/openshift-mcp-server
+  dependencyOf:
+    - airesource:ai5-marketplace/vm-clone

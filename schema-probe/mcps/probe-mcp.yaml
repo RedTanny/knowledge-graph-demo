@@ -1,0 +1,25 @@
+# MCP document. No spec.includes. Membership of this server is the plugin's includes.
+# Expected: validation passes on type, lifecycle, and owner.
+apiVersion: mcp/v1beta1
+kind: MCPServer
+metadata:
+  name: schema-probe-mcp
+  namespace: ai5-marketplace
+  title: Schema Probe MCP
+  description: >
+    Dummy local MCP used only as an includes target and a dependsOn target.
+  labels:
+    distribution: external
+spec:
+  type: local
+  lifecycle: development
+  owner: group:redhat/ai5-marketplace
+  system: default/schema-probe
+  primitives:
+    - type: tool
+      name: probe_ping
+      description: No-op tool so the primitives array is nonempty.
+  packages: []
+  remotes: []
+  dependsOn:
+    - system:default/schema-probe

@@ -1,0 +1,21 @@
+# Legacy path. spec.includes is absent, so the ADR says normalize spec.skills.
+# Expected: validation passes. Membership, if processed, comes from skills only.
+apiVersion: backstage.io/v1alpha1
+kind: AiResource
+metadata:
+  name: schema-probe-skills-only
+  namespace: ai5-marketplace
+  title: Schema Probe Skills Only
+  description: >
+    No spec.includes. spec.skills holds the skill refs. Checks the legacy
+    composition path without the new includes field.
+spec:
+  type: plugin
+  lifecycle: development
+  owner: group:redhat/ai5-marketplace
+  system: default/schema-probe
+  agents: []
+  skills:
+    - airesource:ai5-marketplace/schema-probe-recall
+  dependsOn:
+    - mcpserver:ai5-marketplace/schema-probe-mcp

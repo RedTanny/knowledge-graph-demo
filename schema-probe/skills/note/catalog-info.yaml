@@ -1,0 +1,23 @@
+# Skill that does not depend on the plugin. Membership is the plugin's includes.
+# Expected: validation passes. A missing plugin dependsOn must not be an error.
+apiVersion: backstage.io/v1alpha1
+kind: AiResource
+metadata:
+  name: schema-probe-note
+  namespace: ai5-marketplace
+  title: Schema Probe Note
+  description: >
+    Functional edge only: this skill depends on the probe MCP.
+    It does not depend on schema-probe.
+  labels:
+    distribution: external
+  annotations:
+    backstage.io/source-location: >-
+      url:https://github.com/RedTanny/knowledge-graph-demo/blob/main/schema-probe/skills/note/SKILL.md
+spec:
+  type: skill
+  lifecycle: development
+  owner: group:redhat/ai5-marketplace
+  agents: []
+  dependsOn:
+    - mcpserver:ai5-marketplace/schema-probe-mcp

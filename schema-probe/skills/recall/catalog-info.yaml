@@ -1,0 +1,25 @@
+# Skill that still points dependsOn at the plugin and at another skill.
+# spec.skills does not belong on a skill. Expected: validation passes.
+apiVersion: backstage.io/v1alpha1
+kind: AiResource
+metadata:
+  name: schema-probe-recall
+  namespace: ai5-marketplace
+  title: Schema Probe Recall
+  description: >
+    Functional edges: this skill depends on the probe MCP and on
+    schema-probe-note. The plugin edge is the old roster encoding.
+  labels:
+    distribution: external
+  annotations:
+    backstage.io/source-location: >-
+      url:https://github.com/RedTanny/knowledge-graph-demo/blob/main/schema-probe/skills/recall/SKILL.md
+spec:
+  type: skill
+  lifecycle: development
+  owner: group:redhat/ai5-marketplace
+  agents: []
+  dependsOn:
+    - airesource:ai5-marketplace/schema-probe
+    - airesource:ai5-marketplace/schema-probe-note
+    - mcpserver:ai5-marketplace/schema-probe-mcp
